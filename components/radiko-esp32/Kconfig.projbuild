@@ -2,7 +2,7 @@ menu "Radiko Configuration"
 
 config AUTH_KEY
     string "auth key"
-	default ""
+	default "MyAUTHKEY"
 	help
 		Input the auth key(Required)
 

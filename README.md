@@ -25,6 +25,7 @@ Configure the example:
 - Select compatible audio board in `menuconfig` > `Audio HAL`.
 - Set up the Wi-Fi connection by running `menuconfig` > `Example Configuration` and filling in `WiFi SSID` and `WiFi Password`.
 - Set up the Radiko.jp auth key by running `menuconfig` > `Radiko Configuration` and filling auth key.  
+
 Load and run the example:
 
 - The audio board will first connect to the Wi-Fi.

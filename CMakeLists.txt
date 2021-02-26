@@ -5,4 +5,4 @@ cmake_minimum_required(VERSION 3.5)
 include($ENV{ADF_PATH}/CMakeLists.txt)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-project(living_stream_m3u_aac)
+project(radiko-esp32)

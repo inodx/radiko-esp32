@@ -1,0 +1,15 @@
+menu "ATOMECHO"
+
+choice ATOMECHO_AUDIO_BOARD
+    prompt "ATOMECHO audio board"
+    default ATOMECHO_BOARD_V1_0
+    help
+        Select an audio board to use with the ESP-ADF
+
+config ATOMECHO_BOARD_V1_0
+    bool "ATOMECHO board v1.0"
+
+endchoice
+
+endmenu
+

@@ -350,7 +350,7 @@ static void XMLCALL elementData(void *user_data, const XML_Char *data, int data_
 
 void parse_xml(char * input)
 {
-    stations = malloc(sizeof(station_t) * 16);
+    stations = malloc(sizeof(station_t) * 32);
     if(stations != NULL)
     {
         station_t * st_p = stations;

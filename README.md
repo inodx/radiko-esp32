@@ -28,3 +28,4 @@ IDFでコンパイル転送します（idf.py -p COM3 flash -b 115200など環�
 - Output Configuration > Select play mp3 output > PWM Stream Right Output GPIO NUM =25
 - Output Configuration > Select play mp3 output > PWM Stream Left Output GPIO NUM =26
 StickC+SpakerHATで再生可能（音質悪い）。サードボタンで局変更
+動作中は赤LEDがONになります

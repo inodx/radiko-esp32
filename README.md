@@ -5,7 +5,7 @@ jitenshap/radiko-esp32からのフォークでATOM ECHO用になります。
 基本M5 ATOM ECHO用です。コンフィグでM5 StickCでも動作可能です。
 
 ## Install
-以下の事前導入が必要です。
+以下の事前導入が必要です。導入方法を検索してからインストールするのをお勧めします。
 - ESP-IDF　(4.1のみでテスト）https://github.com/espressif/esp-idf
 - ESP-ADF https://github.com/espressif/esp-adf
 

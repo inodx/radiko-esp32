@@ -5,10 +5,10 @@ jitenshap/radiko-esp32からのフォークでATOM ECHO用になります。
 基本M5 ATOM ECHO用です。コンフィグでM5 StickCでも動作可能です。
 
 ## Install
-事前導入
+以下の事前導入が必要です。
 - ESP-IDF　(4.1のみでテスト）
 - ESP-ADF
-- 
+
 ## menuconfig
 idf.py menuconfigコマンドから以下の設定を行います
 

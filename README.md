@@ -1,32 +1,30 @@
-# Play HTTP Living stream(Radiko.jp)
-ラジコ聴取サンプル based https://github.com/espressif/esp-adf/tree/master/examples/player/pipeline_living_stream  
-
-The example plays a m3u downloaded from HTTP. 
+# Radiko for ATOM ECHO
+jitenshap/radiko-esp32からのフォークでATOM ECHO用になります。
 
 ## Compatibility
+基本M5 ATOM ECHO用です。コンフィグでM5 StickCでも動作可能です。
 
-This example is will run on boards marked with green checkbox. Please remember to select the board in menuconfig as discussed is section *Usage* below.
+## Install
+事前導入
+- ESP-IDF　(4.1のみでテスト）
+- ESP-ADF
+- 
+## menuconfig
+idf.py menuconfigコマンドから以下の設定を行います
 
-| Board Name | Getting Started | Chip | Compatible |
-|-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|:-----------------------------------------------------------------:|
-| ESP32-LyraT | [![alt text](../../../docs/_static/esp32-lyrat-v4.3-side-small.jpg "ESP32-LyraT")](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html) | <img src="../../../docs/_static/ESP32.svg" height="85" alt="ESP32"> | ![alt text](../../../docs/_static/yes-button.png "Compatible") |
-| ESP32-LyraTD-MSC | [![alt text](../../../docs/_static/esp32-lyratd-msc-v2.2-small.jpg "ESP32-LyraTD-MSC")](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyratd-msc.html) | <img src="../../../docs/_static/ESP32.svg" height="85" alt="ESP32"> | ![alt text](../../../docs/_static/yes-button.png "Compatible") |
-| ESP32-LyraT-Mini | [![alt text](../../../docs/_static/esp32-lyrat-mini-v1.2-small.jpg "ESP32-LyraT-Mini")](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat-mini.html) | <img src="../../../docs/_static/ESP32.svg" height="85" alt="ESP32"> | ![alt text](../../../docs/_static/yes-button.png "Compatible") |
-| ESP32-Korvo-DU1906 | [![alt text](../../../docs/_static/esp32-korvo-du1906-v1.1-small.jpg "ESP32-Korvo-DU1906")](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-korvo-du1906.html) | <img src="../../../docs/_static/ESP32.svg" height="85" alt="ESP32"> | ![alt text](../../../docs/_static/yes-button.png "Compatible") |
-| ESP32-S2-Kaluga-1 Kit | [![alt text](../../../docs/_static/esp32-s2-kaluga-1-kit-small.png "ESP32-S2-Kaluga-1 Kit")](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-esp32-s2-kaluga-1-kit.html) | <img src="../../../docs/_static/ESP32-S2.svg" height="100" alt="ESP32-S2"> | ![alt text](../../../docs/_static/yes-button.png "Compatible") |
-## Usage
+- `Audio HAL` = `Custom audio board`を選択
+- `Example Configuration` > `WiFi SSID` and `WiFi Password` = 環境に合わせてください
+- `Radiko Configuration` > `auth key` = Radiko初期認証用のコード。配布してよいのか不明なのでRADIKO_AUTHKEY_VALUEで検索してください
+- `Component config` > "ESP32-specific" > "Support for external, SPI-connected RAM" = OFF
+IDFでコンパイル転送します（idf.py -p COM3 flash -b 115200など環境で異なります）
 
-Prepare the audio board:
+# Useage
+- 起動すると設定のWifiに接続し、Radikoを再生します。
+- ボタンを押すと局を変更
+- 起動で赤LED,Wifi接続OKで青LED、ストリーミング開始で緑LEDが点灯
 
-- Connect speakers or headphones to the board.
-
-Configure the example:
-
-- Select compatible audio board in `menuconfig` > `Audio HAL`.
-- Set up the Wi-Fi connection by running `menuconfig` > `Example Configuration` and filling in `WiFi SSID` and `WiFi Password`.
-- Set up the Radiko.jp auth key by running `menuconfig` > `Radiko Configuration` and filling auth key.  
-
-Load and run the example:
-
-- The audio board will first connect to the Wi-Fi.
-- Then the board will start playing automatically.
+# M5 StickCの場合
+- Output Configuration > Select play mp3 output   = Enable PWM outputへ変更
+- Output Configuration > Select play mp3 output > PWM Stream Right Output GPIO NUM =25
+- Output Configuration > Select play mp3 output > PWM Stream Left Output GPIO NUM =26
+StickC+SpakerHATで再生可能（音質悪い）。サードボタンで局変更

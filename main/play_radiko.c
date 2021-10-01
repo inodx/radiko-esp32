@@ -33,7 +33,7 @@
 #include "periph_wifi.h"
 #include "board.h"
 #include "input_key_service.h"
-
+#include "pwm_stream.h"
 #if __has_include("esp_idf_version.h")
 #include "esp_idf_version.h"
 #else
@@ -54,6 +54,7 @@ static const char *TAG = "HTTP_LIVINGSTREAM_EXAMPLE";
 audio_pipeline_handle_t pipeline;
 audio_element_handle_t http_stream_reader, i2s_stream_writer, aac_decoder;
 
+
 int _http_stream_event_handle(http_stream_event_msg_t *msg)
 {
     if (msg->event_id == HTTP_STREAM_RESOLVE_ALL_TRACKS) {
@@ -68,8 +69,10 @@ int _http_stream_event_handle(http_stream_event_msg_t *msg)
     }
     return ESP_OK;
 }
-
-
+#include "driver/gpio.h"
+#include "ws2812_control.h"
+#define BLINK_GPIO 10
+struct led_state new_state;
 void app_main(void)
 {
     esp_err_t err = nvs_flash_init();
@@ -83,7 +86,15 @@ void app_main(void)
 #else
     tcpip_adapter_init();
 #endif
+    gpio_pad_select_gpio(BLINK_GPIO);
+    /* Set the GPIO as a push/pull output */
+    gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
+    gpio_set_level(BLINK_GPIO, 0);
 
+    ws2812_control_init();
+    new_state.leds[0] = 0x005000;
+	ws2812_write_leds(new_state);
+    
 
     esp_log_level_set("*", ESP_LOG_INFO);
     esp_log_level_set(TAG, ESP_LOG_DEBUG);
@@ -91,10 +102,10 @@ void app_main(void)
     ESP_LOGI(TAG, "[ 1 ] Start audio codec chip");
     audio_board_handle_t board_handle = audio_board_init();
     audio_hal_ctrl_codec(board_handle->audio_hal, AUDIO_HAL_CODEC_MODE_DECODE, AUDIO_HAL_CTRL_START);
-    audio_hal_set_volume(board_handle->audio_hal, 50);
-    int player_volume;
-    int current_station = 0; 
-    audio_hal_get_volume(board_handle->audio_hal, &player_volume);
+//    audio_hal_set_volume(board_handle->audio_hal, 50);
+    int player_volume=50;
+    int current_station = 5; 
+//    audio_hal_get_volume(board_handle->audio_hal, &player_volume);
 
     ESP_LOGI(TAG, "[2.0] Create audio pipeline for playback");
     audio_pipeline_cfg_t pipeline_cfg = DEFAULT_AUDIO_PIPELINE_CONFIG();
@@ -107,11 +118,21 @@ void app_main(void)
     http_cfg.enable_playlist_parser = true;
     http_stream_reader = http_stream_init(&http_cfg);
 
+    
     ESP_LOGI(TAG, "[2.2] Create i2s stream to write data to codec chip");
-    i2s_stream_cfg_t i2s_cfg = I2S_STREAM_CFG_DEFAULT();
+#ifdef CONFIG_PLAY_OUTPUT_PWM
+    pwm_stream_cfg_t pwm_cfg = PWM_STREAM_CFG_DEFAULT();
+    pwm_cfg.pwm_config.gpio_num_left = CONFIG_PWM_LEFT_OUTPUT_GPIO_NUM;
+    pwm_cfg.pwm_config.gpio_num_right = CONFIG_PWM_RIGHT_OUTPUT_GPIO_NUM;
+    i2s_stream_writer = pwm_stream_init(&pwm_cfg);
+#else
+    i2s_stream_cfg_t i2s_cfg = I2S_STREAM_CFG_DEFAULT();//I2S_STREAM_CFG_DEFAULT();//I2S_STREAM_INTERNAL_DAC_CFG_DEFAULT
     i2s_cfg.type = AUDIO_STREAM_WRITER;
     i2s_stream_writer = i2s_stream_init(&i2s_cfg);
 
+#endif
+    new_state.leds[0] = 0x0050;//blue
+//    ws2812_write_leds(new_state);
     ESP_LOGI(TAG, "[2.3] Create aac decoder to decode aac file");
     aac_decoder_cfg_t aac_cfg = DEFAULT_AAC_DECODER_CONFIG();
     aac_decoder = aac_decoder_init(&aac_cfg);
@@ -125,13 +146,22 @@ void app_main(void)
     const char *link_tag[3] = {"http", "aac", "i2s"};
     audio_pipeline_link(pipeline, &link_tag[0], 3);
 
-
-    ESP_LOGI(TAG, "[ 3 ] Start and wait for Wi-Fi network");
+    ESP_LOGI(TAG, "[ 3 ] Create and start input key service");
     esp_periph_config_t periph_cfg = DEFAULT_ESP_PERIPH_SET_CONFIG();
     esp_periph_set_handle_t set = esp_periph_set_init(&periph_cfg);
-
     audio_board_key_init(set);
 
+
+//    input_key_service_info_t input_key_info[] = INPUT_KEY_DEFAULT_INFO();
+//    input_key_service_cfg_t input_cfg = INPUT_KEY_SERVICE_DEFAULT_CONFIG();
+//    input_cfg.handle = set;
+//    periph_service_handle_t input_ser = input_key_service_create(&input_cfg);
+//    input_key_service_add_key(input_ser, input_key_info, INPUT_KEY_NUM);
+
+
+
+
+    ESP_LOGI(TAG, "[ 3 ] Start and wait for Wi-Fi network");
 
     periph_wifi_cfg_t wifi_cfg = 
     {
@@ -142,11 +172,14 @@ void app_main(void)
     esp_periph_handle_t wifi_handle = periph_wifi_init(&wifi_cfg);
     esp_periph_start(set, wifi_handle);
     periph_wifi_wait_for_connected(wifi_handle, portMAX_DELAY);
+	ws2812_write_leds(new_state);
     auth();
     get_station_list();
-    generate_playlist_url(stations);
+    generate_playlist_url(&stations[current_station]);
     ESP_LOGI(TAG, "[2.6] Set up  uri (http as http_stream, aac as aac decoder, and default output is i2s)");
     audio_element_set_uri(http_stream_reader, _playlist_url);
+
+
 
     ESP_LOGI(TAG, "[ 4 ] Set up  event listener");
     audio_event_iface_cfg_t evt_cfg = AUDIO_EVENT_IFACE_DEFAULT_CFG();
@@ -159,6 +192,7 @@ void app_main(void)
     audio_event_iface_set_listener(esp_periph_set_get_event_iface(set), evt);
 
     ESP_LOGI(TAG, "[ 5 ] Start audio_pipeline");
+    
     audio_pipeline_run(pipeline);
 
     while (1) 
@@ -239,7 +273,7 @@ void app_main(void)
                 {
                     player_volume = 100;
                 }
-                audio_hal_set_volume(board_handle->audio_hal, player_volume);
+//                audio_hal_set_volume(board_handle->audio_hal, player_volume);
                 ESP_LOGI(TAG, "[ * ] Volume set to %d %%", player_volume);
             } 
             else if ((int) msg.data == get_input_voldown_id()) 
@@ -249,7 +283,7 @@ void app_main(void)
                 if (player_volume < 0) {
                     player_volume = 0;
                 }
-                audio_hal_set_volume(board_handle->audio_hal, player_volume);
+//                audio_hal_set_volume(board_handle->audio_hal, player_volume);
                 ESP_LOGI(TAG, "[ * ] Volume set to %d %%", player_volume);
             }
         }
@@ -264,8 +298,16 @@ void app_main(void)
             ESP_LOGI(TAG, "[ * ] Receive music info from aac decoder, sample_rates=%d, bits=%d, ch=%d",
                     music_info.sample_rates, music_info.bits, music_info.channels);
 
+
             audio_element_setinfo(i2s_stream_writer, &music_info);
+          	new_state.leds[0] = 0x500000;//green
+    		ws2812_write_leds(new_state);
+
+#ifdef CONFIG_PLAY_OUTPUT_PWM
+			pwm_stream_set_clk(i2s_stream_writer, music_info.sample_rates, music_info.bits, music_info.channels);
+#else
             i2s_stream_set_clk(i2s_stream_writer, music_info.sample_rates, music_info.bits, music_info.channels);
+#endif
             continue;
         }
 

@@ -28,7 +28,13 @@ IDFでコンパイル転送します（idf.py -p COM3 flash -b 115200など環�
 - Output Configuration > Select play mp3 output   = Enable PWM outputへ変更
 - Output Configuration > Select play mp3 output > PWM Stream Right Output GPIO NUM =25
 - Output Configuration > Select play mp3 output > PWM Stream Left Output GPIO NUM =26
+- 動作中は赤LEDがONになります
+- StickC+SpakerHATで再生可能（音質悪い）。サードボタンで局変更
+- この設定で任意のGPIOからオーディオ出力可能なのでECHOでも設定次第で外部スピーカ等をつなげます
+- 音質についてはローパスフィルタをつけることで改善可能です
 
-StickC+SpakerHATで再生可能（音質悪い）。サードボタンで局変更
+無保証です。自己責任でお楽しみください。外部接続などで場合によっては機器を破損したりする場合もあります。
 
-動作中は赤LEDがONになります
+
+
+

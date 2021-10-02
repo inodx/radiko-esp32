@@ -57,7 +57,7 @@ extern audio_hal_func_t AUDIO_NEW_CODEC_DEFAULT_HANDLE;
 
 #define INPUT_KEY_DEFAULT_INFO() {                      \
     {                                                   \
-        .type = PERIPH_ID_ADC_BTN,                      \
+        .type = PERIPH_ID_BUTTON,                      \
         .user_id = INPUT_KEY_USER_ID_SET,               \
         .act_id = BUTTON_SET_ID,                        \
     },                                                  \

@@ -53,7 +53,7 @@ extern audio_hal_func_t AUDIO_NEW_CODEC_DEFAULT_HANDLE;
         },                                              \
 };
 
-#define INPUT_KEY_NUM     4             /* You need to define the number of input buttons on your board */
+#define INPUT_KEY_NUM     1             /* You need to define the number of input buttons on your board */
 
 #define INPUT_KEY_DEFAULT_INFO() {                      \
     {                                                   \

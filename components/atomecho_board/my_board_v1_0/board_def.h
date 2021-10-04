@@ -47,7 +47,7 @@ extern audio_hal_func_t AUDIO_NEW_CODEC_DEFAULT_HANDLE;
         .codec_mode = AUDIO_HAL_CODEC_MODE_BOTH,        \
         .i2s_iface = {                                  \
             .mode = AUDIO_HAL_MODE_SLAVE,               \
-            .fmt = AUDIO_HAL_I2S_NORMAL,                \
+            .fmt = AUDIO_HAL_I2S_RIGHT,                \
             .samples = AUDIO_HAL_48K_SAMPLES,           \
             .bits = AUDIO_HAL_BIT_LENGTH_16BITS,        \
         },                                              \

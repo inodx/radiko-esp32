@@ -32,6 +32,7 @@
 #include "board.h"
 #include "periph_wifi.h"
 #include "board.h"
+#include "audio_alc.h"
 #include "input_key_service.h"
 #include "pwm_stream.h"
 #if __has_include("esp_idf_version.h")
@@ -69,12 +70,20 @@ int _http_stream_event_handle(http_stream_event_msg_t *msg)
     }
     return ESP_OK;
 }
+
+
+audio_element_handle_t alc_el;
+
+int player_volume=-10;
+
 #include "driver/gpio.h"
 #include "ws2812_control.h"
 #define BLINK_GPIO 10
+
 struct led_state new_state;
 void app_main(void)
 {
+
     esp_err_t err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES) 
     {
@@ -86,8 +95,8 @@ void app_main(void)
 #else
     tcpip_adapter_init();
 #endif
+	//for M5 StickC
     gpio_pad_select_gpio(BLINK_GPIO);
-    /* Set the GPIO as a push/pull output */
     gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
     gpio_set_level(BLINK_GPIO, 0);
 
@@ -103,7 +112,7 @@ void app_main(void)
     audio_board_handle_t board_handle = audio_board_init();
     audio_hal_ctrl_codec(board_handle->audio_hal, AUDIO_HAL_CODEC_MODE_DECODE, AUDIO_HAL_CTRL_START);
 //    audio_hal_set_volume(board_handle->audio_hal, 50);
-    int player_volume=50;
+
     int current_station = 5; 
 //    audio_hal_get_volume(board_handle->audio_hal, &player_volume);
 
@@ -129,7 +138,6 @@ void app_main(void)
     i2s_stream_cfg_t i2s_cfg = I2S_STREAM_CFG_DEFAULT();//I2S_STREAM_CFG_DEFAULT();//I2S_STREAM_INTERNAL_DAC_CFG_DEFAULT
     i2s_cfg.type = AUDIO_STREAM_WRITER;
     i2s_stream_writer = i2s_stream_init(&i2s_cfg);
-
 #endif
     new_state.leds[0] = 0x0050;//blue
 //    ws2812_write_leds(new_state);
@@ -142,24 +150,21 @@ void app_main(void)
     audio_pipeline_register(pipeline, aac_decoder,        "aac");
     audio_pipeline_register(pipeline, i2s_stream_writer,  "i2s");
 
-    ESP_LOGI(TAG, "[2.5] Link it together http_stream-->aac_decoder-->i2s_stream-->[codec_chip]");
-    const char *link_tag[3] = {"http", "aac", "i2s"};
-    audio_pipeline_link(pipeline, &link_tag[0], 3);
+    alc_volume_setup_cfg_t alc_cfg = DEFAULT_ALC_VOLUME_SETUP_CONFIG();
+    alc_el = alc_volume_setup_init(&alc_cfg);
+    audio_pipeline_register(pipeline, alc_el, "alc");
+    ESP_LOGI(TAG, "[2.5] Link it together http_stream-->aac_decoder-->ALC-->i2s_stream-->[codec_chip]");
+    const char *link_tag[4] = {"http", "aac", "alc", "i2s"};
+    audio_pipeline_link(pipeline, &link_tag[0], 4);
+
+//    ESP_LOGI(TAG, "[2.5] Link it together http_stream-->aac_decoder-->i2s_stream-->[codec_chip]");
+//    const char *link_tag[3] = {"http", "aac", "i2s"};
+//    audio_pipeline_link(pipeline, &link_tag[0], 3);
 
     ESP_LOGI(TAG, "[ 3 ] Create and start input key service");
     esp_periph_config_t periph_cfg = DEFAULT_ESP_PERIPH_SET_CONFIG();
     esp_periph_set_handle_t set = esp_periph_set_init(&periph_cfg);
     audio_board_key_init(set);
-
-
-//    input_key_service_info_t input_key_info[] = INPUT_KEY_DEFAULT_INFO();
-//    input_key_service_cfg_t input_cfg = INPUT_KEY_SERVICE_DEFAULT_CONFIG();
-//    input_cfg.handle = set;
-//    periph_service_handle_t input_ser = input_key_service_create(&input_cfg);
-//    input_key_service_add_key(input_ser, input_key_info, INPUT_KEY_NUM);
-
-
-
 
     ESP_LOGI(TAG, "[ 3 ] Start and wait for Wi-Fi network");
 
@@ -205,8 +210,8 @@ void app_main(void)
             continue;
         }
 
-        if ((msg.source_type == PERIPH_ID_TOUCH || msg.source_type == PERIPH_ID_BUTTON || msg.source_type == PERIPH_ID_ADC_BTN)
-            && (msg.cmd == PERIPH_TOUCH_TAP || msg.cmd == PERIPH_BUTTON_PRESSED || msg.cmd == PERIPH_ADC_BUTTON_PRESSED)) {
+        if ((msg.source_type == PERIPH_ID_BUTTON )
+            && (msg.cmd == PERIPH_BUTTON_RELEASE || msg.cmd == PERIPH_BUTTON_LONG_RELEASE)) {
 
             if ((int) msg.data == get_input_play_id()) 
             {
@@ -239,6 +244,17 @@ void app_main(void)
             } 
             else if ((int) msg.data == get_input_set_id()) 
             {
+            	if (msg.cmd == PERIPH_BUTTON_LONG_RELEASE) {
+           			player_volume-=10;
+           			if (player_volume<=-50) player_volume=0;
+                	alc_volume_setup_set_volume(alc_el, player_volume);
+            		ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_LONG_RELEASE");
+            		continue;
+            		}
+//            	if (msg.cmd != PERIPH_BUTTON_RELEASE) continue;
+            	
+            	ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_RELEASE");
+ 				
                 ESP_LOGI(TAG, "[ * ] [Set] touch tap event");
                 ESP_LOGI(TAG, "[ * ] Stopping audio pipeline");
 
@@ -302,6 +318,8 @@ void app_main(void)
             audio_element_setinfo(i2s_stream_writer, &music_info);
           	new_state.leds[0] = 0x500000;//green
     		ws2812_write_leds(new_state);
+            alc_volume_setup_set_channel(alc_el, music_info.channels);
+            alc_volume_setup_set_volume(alc_el, player_volume);
 
 #ifdef CONFIG_PLAY_OUTPUT_PWM
 			pwm_stream_set_clk(i2s_stream_writer, music_info.sample_rates, music_info.bits, music_info.channels);

@@ -1,0 +1,298 @@
+08:51:31.086 -> rv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+08:51:31.086 -> mode:DIO, clock divets Jun  8 2016 00:22:57
+08:51:31.086 -> 
+08:51:31.086 -> rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+08:51:31.133 -> configsip: 188777542, SPIWP:0xee
+08:51:31.133 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+08:51:31.133 -> mode:DIO, clock div:1
+08:51:31.133 -> load:0x3fff0030,len:4
+08:51:31.133 -> load:0x3fff0034,len:7336
+08:51:31.133 -> load:0x40078000,len:13792
+08:51:31.133 -> ho 0 tail 12 room 4
+08:51:31.133 -> load:0x40080400,len:4560
+08:51:31.133 -> entry 0x400806a4
+08:51:31.133 -> [0;32mI (31) boot: ESP-IDF v4.1.2-dirty 2nd stage bootloader[0m
+08:51:31.133 -> [0;32mI (31) boot: compile time 20:01:57[0m
+08:51:31.133 -> [0;32mI (31) boot: chip revision: 1[0m
+08:51:31.133 -> [0;32mI (35) boot_comm: chip revision: 1, min. bootloader chip revision: 0[0m
+08:51:31.179 -> [0;32mI (42) qio_mode: Enabling default flash chip QIO[0m
+08:51:31.179 -> [0;32mI (47) boot.esp32: SPI Speed      : 80MHz[0m
+08:51:31.179 -> [0;32mI (52) boot.esp32: SPI Mode       : QIO[0m
+08:51:31.179 -> [0;32mI (56) boot.esp32: SPI Flash Size : 4MB[0m
+08:51:31.179 -> [0;32mI (61) boot: Enabling RNG early entropy source...[0m
+08:51:31.179 -> [0;32mI (66) boot: Partition Table:[0m
+08:51:31.179 -> [0;32mI (70) boot: ## Label            Usage          Type ST Offset   Length[0m
+08:51:31.179 -> [0;32mI (77) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+08:51:31.179 -> [0;32mI (84) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+08:51:31.227 -> [0;32mI (92) boot:  2 factory          factory app      00 00 00010000 00300000[0m
+08:51:31.227 -> [0;32mI (99) boot: End of partition table[0m
+08:51:31.227 -> [0;32mI (104) boot_comm: chip revision: 1, min. application chip revision: 0[0m
+08:51:31.227 -> [0;32mI (111) esp_image: segment 0: paddr=0x00010020 vaddr=0x3f400020 size=0x2fcdc (195804) map[0m
+08:51:31.275 -> [0;32mI (177) esp_image: segment 1: paddr=0x0003fd04 vaddr=0x3ffb0000 size=0x00314 (   788) load[0m
+08:51:31.275 -> [0;32mI (178) esp_image: segment 2: paddr=0x00040020 vaddr=0x400d0020 size=0xba154 (762196) map[0m
+08:51:31.511 -> [0;32mI (408) esp_image: segment 3: paddr=0x000fa17c vaddr=0x3ffb0314 size=0x02f48 ( 12104) load[0m
+08:51:31.511 -> [0;32mI (413) esp_image: segment 4: paddr=0x000fd0cc vaddr=0x40080000 size=0x00404 (  1028) load[0m
+08:51:31.558 -> [0;32mI (416) esp_image: segment 5: paddr=0x000fd4d8 vaddr=0x40080404 size=0x16314 ( 90900) load[0m
+08:51:31.558 -> [0;32mI (468) boot: Loaded app from partition at offset 0x10000[0m
+08:51:31.605 -> [0;32mI (468) boot: Disabling RNG early entropy source...[0m
+08:51:31.605 -> [0;32mI (469) cpu_start: Pro cpu up.[0m
+08:51:31.605 -> [0;32mI (472) cpu_start: Application information:[0m
+08:51:31.605 -> [0;32mI (477) cpu_start: Project name:     radiko-esp32[0m
+08:51:31.605 -> [0;32mI (483) cpu_start: App version:      5a2bd85-dirty[0m
+08:51:31.605 -> [0;32mI (488) cpu_start: Compile time:     Oct  6 2021 08:44:25[0m
+08:51:31.605 -> [0;32mI (494) cpu_start: ELF file SHA256:  9446ff6c62d0c527...[0m
+08:51:31.605 -> [0;32mI (500) cpu_start: ESP-IDF:          v4.1.2-dirty[0m
+08:51:31.605 -> [0;32mI (505) cpu_start: Starting app cpu, entry point is 0x40081388[0m
+08:51:31.651 -> [0;32mI (0) cpu_start: App cpu up.[0m
+08:51:31.651 -> [0;32mI (516) heap_init: Initializing. RAM available for dynamic allocation:[0m
+08:51:31.651 -> [0;32mI (523) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+08:51:31.651 -> [0;32mI (529) heap_init: At 3FFB8508 len 00027AF8 (158 KiB): DRAM[0m
+08:51:31.651 -> [0;32mI (535) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+08:51:31.651 -> [0;32mI (541) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+08:51:31.651 -> [0;32mI (548) heap_init: At 40096718 len 000098E8 (38 KiB): IRAM[0m
+08:51:31.698 -> [0;32mI (554) cpu_start: Pro cpu start user code[0m
+08:51:31.698 -> [0;32mI (571) spi_flash: detected chip: gd[0m
+08:51:31.698 -> [0;32mI (571) spi_flash: flash io: qio[0m
+08:51:31.698 -> [0;32mI (571) cpu_start: Starting scheduler on PRO CPU.[0m
+08:51:31.698 -> [0;32mI (0) cpu_start: Starting scheduler on APP CPU.[0m
+08:51:31.698 -> [0;32mI (623) ECHO_BOARD: Set led color : FF[0m
+08:51:31.698 -> [0;32mI (633) HTTP_LIVINGSTREAM_EXAMPLE: [ 1 ] Start audio codec chip[0m
+08:51:31.745 -> [0;32mI (633) new_codec: new_codec init[0m
+08:51:31.745 -> [0;32mI (633) ECHO_BOARD: init audio board[0m
+08:51:31.745 -> [0;32mI (633) AUDIO_HAL: Codec mode is 2, Ctrl:1[0m
+08:51:31.745 -> [0;32mI (643) HTTP_LIVINGSTREAM_EXAMPLE: [2.0] Create audio pipeline for playback[0m
+08:51:31.745 -> [0;32mI (643) HTTP_LIVINGSTREAM_EXAMPLE: [2.1] Create http stream to read data[0m
+08:51:31.745 -> [0;32mI (653) HTTP_LIVINGSTREAM_EXAMPLE: [2.2] Create i2s stream to write data to codec chip[0m
+08:51:31.745 -> [0;32mI (663) I2S: DMA Malloc info, datalen=blocksize=1200, dma_buf_count=3[0m
+08:51:31.745 -> [0;32mI (673) I2S: DMA Malloc info, datalen=blocksize=1200, dma_buf_count=3[0m
+08:51:31.792 -> [0;32mI (693) I2S: APLL: Req RATE: 44100, real rate: 44099.988, BITS: 16, CLKM: 1, BCK_M: 8, MCLK: 11289597.000, SCLK: 1411199.625000, diva: 1, divb: 0[0m
+08:51:31.792 -> [0;32mI (693) ECHO_V1_0: I2S0, MCLK output by GPIO0[0m
+08:51:31.792 -> [0;32mI (703) HTTP_LIVINGSTREAM_EXAMPLE: [2.3] Create aac decoder to decode aac file[0m
+08:51:31.792 -> [0;32mI (713) HTTP_LIVINGSTREAM_EXAMPLE: [2.4] Register all elements to audio pipeline[0m
+08:51:31.792 -> [0;32mI (713) HTTP_LIVINGSTREAM_EXAMPLE: [2.5] Link it together http_stream-->aac_decoder-->ALC-->i2s_stream-->[codec_chip][0m
+08:51:31.838 -> [0;32mI (733) AUDIO_PIPELINE: link el->rb, el:0x3ffbe48c, tag:http, rb:0x3ffc22a0[0m
+08:51:31.838 -> [0;32mI (733) AUDIO_PIPELINE: link el->rb, el:0x3ffc1bb8, tag:aac, rb:0x3ffc73e8[0m
+08:51:31.838 -> [0;32mI (743) AUDIO_PIPELINE: link el->rb, el:0x3ffc1f38, tag:alc, rb:0x3ffc7d30[0m
+08:51:31.838 -> [0;32mI (753) HTTP_LIVINGSTREAM_EXAMPLE: [ 3 ] Create and start input key service[0m
+08:51:31.838 -> [0;32mI (763) gpio: GPIO[39]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:3 [0m
+08:51:31.838 -> [0;32mI (763) HTTP_LIVINGSTREAM_EXAMPLE: [ 3.1 ] Start and wait for Wi-Fi network[0m
+08:51:31.885 -> I (793) wifi:wifi driver task: 3ffcd8b8, prio:23, stack:6656, core=0
+08:51:31.885 -> [0;32mI (793) system_api: Base MAC address is not set, read default base MAC address from BLK0 of EFUSE[0m
+08:51:31.885 -> [0;32mI (793) system_api: Base MAC address is not set, read default base MAC address from BLK0 of EFUSE[0m
+08:51:31.885 -> I (813) wifi:wifi firmware version: 1424aca
+08:51:31.885 -> I (813) wifi:config NVS flash: enabled
+08:51:31.885 -> I (813) wifi:config nano formating: disabled
+08:51:31.885 -> I (813) wifi:Init data frame dynamic rx buffer num: 32
+08:51:31.931 -> I (823) wifi:Init management frame dynamic rx buffer num: 32
+08:51:31.931 -> I (823) wifi:Init management short buffer num: 32
+08:51:31.931 -> I (833) wifi:Init static tx buffer num: 16
+08:51:31.931 -> I (833) wifi:Init static rx buffer size: 1600
+08:51:31.931 -> I (843) wifi:Init static rx buffer num: 10
+08:51:31.931 -> I (843) wifi:Init dynamic rx buffer num: 32
+08:51:31.931 -> [0;32mI (843) wifi_init: rx ba win: 6[0m
+08:51:31.931 -> [0;32mI (853) wifi_init: tcpip mbox: 32[0m
+08:51:31.931 -> [0;32mI (853) wifi_init: udp mbox: 6[0m
+08:51:31.931 -> [0;32mI (853) wifi_init: tcp mbox: 6[0m
+08:51:31.931 -> [0;32mI (863) wifi_init: tcp tx win: 5744[0m
+08:51:31.979 -> [0;32mI (863) wifi_init: tcp rx win: 5744[0m
+08:51:31.979 -> [0;32mI (873) wifi_init: tcp mss: 1440[0m
+08:51:31.979 -> [0;32mI (873) wifi_init: WiFi IRAM OP enabled[0m
+08:51:31.979 -> [0;32mI (883) wifi_init: WiFi RX IRAM OP enabled[0m
+08:51:31.979 -> [0;32mI (883) phy_init: phy_version 4660,0162888,Dec 23 2020[0m
+08:51:32.026 -> I (973) wifi:mode : sta (50:02:91:9f:43:14)
+08:51:33.343 -> I (2263) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1
+08:51:33.860 -> I (2793) wifi:state: init -> auth (b0)
+08:51:33.860 -> I (2793) wifi:state: auth -> assoc (0)
+08:51:33.860 -> I (2793) wifi:state: assoc -> run (10)
+08:51:34.002 -> I (2903) wifi:connected with aterm-938f40-g, aid = 1, channel 11, BW20, bssid = 6c:e4:da:51:37:32
+08:51:34.002 -> I (2903) wifi:security: WPA2-PSK, phy: bgn, rssi: -59
+08:51:34.002 -> I (2903) wifi:pm start, type: 1
+08:51:34.002 -> 
+08:51:34.002 -> [0;33mW (2913) PERIPH_WIFI: WiFi Event cb, Unhandle event_base:WIFI_EVENT, event_id:4[0m
+08:51:34.095 -> I (2983) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+08:51:35.692 -> [0;32mI (4623) esp_netif_handlers: sta ip: 192.168.10.6, mask: 255.255.255.0, gw: 192.168.10.1[0m
+08:51:35.692 -> [0;32mI (4623) PERIPH_WIFI: Got ip:192.168.10.6[0m
+08:51:35.740 -> [0;32mI (4623) ECHO_BOARD: Set led color : FF0000[0m
+08:51:35.740 -> [0;31mE (4623) gpio: gpio_install_isr_service(438): GPIO isr service already installed[0m
+08:51:35.740 -> [0;32mI (4643) GET: Starting auth1[0m
+08:51:37.107 -> [0;32mI (6013) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Server, value=nginx[0m
+08:51:37.107 -> [0;32mI (6013) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Date, value=Tue, 05 Oct 2021 23:51:31 GMT[0m
+08:51:37.107 -> [0;32mI (6023) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Content-Type, value=text/plain[0m
+08:51:37.107 -> [0;32mI (6023) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Transfer-Encoding, value=chunked[0m
+08:51:37.107 -> [0;32mI (6033) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Connection, value=keep-alive[0m
+08:51:37.154 -> [0;32mI (6043) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-AppType, value=pc[0m
+08:51:37.154 -> [0;32mI (6053) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-AppType2, value=pc[0m
+08:51:37.154 -> [0;32mI (6053) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-Authtoken, value=2BRFZngdhk_WGlKNtTkapA[0m
+08:51:37.154 -> [0;32mI (6063) EVT_HTTP: GOT TOKEN[0m
+08:51:37.154 -> [0;32mI (6073) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-AuthWait, value=0[0m
+08:51:37.154 -> [0;32mI (6073) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-Delay, value=15[0m
+08:51:37.154 -> [0;32mI (6083) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-KeyLength, value=16[0m
+08:51:37.200 -> [0;32mI (6093) EVT_HTTP: GOT LENGTH[0m
+08:51:37.200 -> [0;32mI (6093) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=X-Radiko-KeyOffset, value=23[0m
+08:51:37.200 -> [0;32mI (6103) EVT_HTTP: GOT OFFSET[0m
+08:51:37.200 -> [0;32mI (6103) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Access-Control-Expose-Headers, value=X-Radiko-AuthToken, X-Radiko-Partialkey, X-Radiko-AppType, X-Radiko-AuthWait, X-Radiko-Delay, X-Radiko-KeyLength, X-Radiko-KeyOffset[0m
+08:51:37.247 -> [0;32mI (6123) EVT_HTTP: HTTP_EVENT_ON_HEADER, key=Credentials, value=true[0m
+08:51:37.247 -> [0;32mI (6133) EVT_HTTP: Received data: please send a part of key[0m
+08:51:37.247 -> [0;32mI (6143) GET: HTTPS Status = 200, content_length = -1[0m
+08:51:37.247 -> [0;32mI (6143) GET: Token: 2BRFZngdhk_WGlKNtTkapA[0m
+08:51:37.247 -> [0;32mI (6153) GET: Partial Key: 66c32209da9ca0af[0m
+08:51:37.247 -> [0;32mI (6153) EVT_HTTP: HTTP_EVENT_DISCONNECTED[0m
+08:51:37.247 -> [0;32mI (6163) GET: Base64 encoded: NjZjMzIyMDlkYTljYTBhZg==[0m
+08:51:37.247 -> [0;32mI (6163) GET: Starting auth2[0m
+08:51:38.563 -> [0;32mI (7493) GET: HTTPS Status = 200, content_length = -1[0m
+08:51:38.563 -> [0;32mI (7493) GET: Region: JP10[0m
+08:51:38.563 -> [0;32mI (7493) EVT_HTTP: HTTP_EVENT_DISCONNECTED[0m
+08:51:38.563 -> [0;32mI (7493) GET ST LIST: Allocating xml buffer[0m
+08:51:38.611 -> [0;32mI (7503) GET ST LIST: Starting https request[0m
+08:51:40.013 -> [0;32mI (8903) GET ST LIST: HTTPS Status = 200, content_length = 24751[0m
+08:51:40.013 -> [0;32mI (8903) ELEMDATA: [ID]: TBS[0m
+08:51:40.013 -> [0;32mI (8913) ELEMDATA: [NAME]: TBSƒ‰ƒWƒI[0m
+08:51:40.013 -> [0;32mI (8913) ELEMDATA: [ASCII_NAME]: TBS RADIO[0m
+08:51:40.013 -> [0;32mI (8913) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/TBS/logo_xsmall.png[0m
+08:51:40.013 -> 
+08:51:40.013 -> [0;32mI (8923) ELEMDATA: [ID]: QRR[0m
+08:51:40.013 -> [0;32mI (8923) ELEMDATA: [NAME]: •¶‰»•ú‘—[0m
+08:51:40.013 -> [0;32mI (8933) ELEMDATA: [ASCII_NAME]: JOQR BUNKA HOSO[0m
+08:51:40.061 -> [0;32mI (8933) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/QRR/logo_xsmall.png[0m
+08:51:40.061 -> 
+08:51:40.061 -> [0;32mI (8943) ELEMDATA: [ID]: LFR[0m
+08:51:40.061 -> [0;32mI (8943) ELEMDATA: [NAME]: ƒjƒbƒ|ƒ“•ú‘—[0m
+08:51:40.061 -> [0;32mI (8953) ELEMDATA: [ASCII_NAME]: JOLF NIPPON HOSO[0m
+08:51:40.061 -> [0;32mI (8953) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/LFR/logo_xsmall.png[0m
+08:51:40.061 -> 
+08:51:40.061 -> [0;32mI (8963) ELEMDATA: [ID]: RN1[0m
+08:51:40.061 -> [0;32mI (8973) ELEMDATA: [NAME]: ƒ‰ƒWƒINIKKEI‘æ1[0m
+08:51:40.061 -> [0;32mI (8973) ELEMDATA: [ASCII_NAME]: RADIONIKKEI[0m
+08:51:40.061 -> [0;32mI (8983) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/RN1/logo_xsmall.png[0m
+08:51:40.108 -> 
+08:51:40.108 -> [0;32mI (8993) ELEMDATA: [ID]: RN2[0m
+08:51:40.108 -> [0;32mI (8993) ELEMDATA: [NAME]: ƒ‰ƒWƒINIKKEI‘æ2[0m
+08:51:40.108 -> [0;32mI (8993) ELEMDATA: [ASCII_NAME]: RADIONIKKEI2[0m
+08:51:40.108 -> [0;32mI (9003) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/RN2/logo_xsmall.png[0m
+08:51:40.108 -> 
+08:51:40.108 -> [0;32mI (9013) ELEMDATA: [ID]: INT[0m
+08:51:40.108 -> [0;32mI (9013) ELEMDATA: [NAME]: InterFM897[0m
+08:51:40.108 -> [0;32mI (9023) ELEMDATA: [ASCII_NAME]: InterFM897[0m
+08:51:40.108 -> [0;32mI (9023) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/INT/logo_xsmall.png[0m
+08:51:40.108 -> 
+08:51:40.108 -> [0;32mI (9033) ELEMDATA: [ID]: FMT[0m
+08:51:40.154 -> [0;32mI (9033) ELEMDATA: [NAME]: TOKYO FM[0m
+08:51:40.154 -> [0;32mI (9043) ELEMDATA: [ASCII_NAME]: TOKYO FM[0m
+08:51:40.154 -> [0;32mI (9043) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/FMT/logo_xsmall.png[0m
+08:51:40.154 -> 
+08:51:40.154 -> [0;32mI (9053) ELEMDATA: [ID]: FMJ[0m
+08:51:40.154 -> [0;32mI (9053) ELEMDATA: [NAME]: J-WAVE[0m
+08:51:40.154 -> [0;32mI (9063) ELEMDATA: [ASCII_NAME]: J-WAVE[0m
+08:51:40.154 -> [0;32mI (9063) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/FMJ/logo_xsmall.png[0m
+08:51:40.154 -> 
+08:51:40.154 -> [0;32mI (9073) ELEMDATA: [ID]: FMGUNMA[0m
+08:51:40.154 -> [0;32mI (9073) ELEMDATA: [NAME]: FM GUNMA[0m
+08:51:40.154 -> [0;32mI (9083) ELEMDATA: [ASCII_NAME]: FM GUNMA[0m
+08:51:40.201 -> [0;32mI (9083) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/FMGUNMA/logo_xsmall.png[0m
+08:51:40.201 -> 
+08:51:40.201 -> [0;32mI (9093) ELEMDATA: [ID]: JORF[0m
+08:51:40.201 -> [0;32mI (9093) ELEMDATA: [NAME]: ƒ‰ƒWƒI“ú–{[0m
+08:51:40.201 -> [0;32mI (9103) ELEMDATA: [ASCII_NAME]: RF RADIO NIPPON[0m
+08:51:40.201 -> [0;32mI (9103) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/JORF/logo_xsmall.png[0m
+08:51:40.201 -> 
+08:51:40.201 -> [0;32mI (9113) ELEMDATA: [ID]: BAYFM78[0m
+08:51:40.201 -> [0;32mI (9123) ELEMDATA: [NAME]: bayfm78[0m
+08:51:40.201 -> [0;32mI (9123) ELEMDATA: [ASCII_NAME]: bayfm78[0m
+08:51:40.201 -> [0;32mI (9133) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/BAYFM78/logo_xsmall.png[0m
+08:51:40.248 -> 
+08:51:40.248 -> [0;32mI (9143) ELEMDATA: [ID]: NACK5[0m
+08:51:40.248 -> [0;32mI (9143) ELEMDATA: [NAME]: NACK5[0m
+08:51:40.248 -> [0;32mI (9143) ELEMDATA: [ASCII_NAME]: NACK5[0m
+08:51:40.248 -> [0;32mI (9153) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/NACK5/logo_xsmall.png[0m
+08:51:40.248 -> 
+08:51:40.248 -> [0;32mI (9163) ELEMDATA: [ID]: YFM[0m
+08:51:40.248 -> [0;32mI (9163) ELEMDATA: [NAME]: ‚e‚lƒˆƒRƒnƒ}[0m
+08:51:40.248 -> [0;32mI (9163) ELEMDATA: [ASCII_NAME]: Fm yokohama 84.7[0m
+08:51:40.248 -> [0;32mI (9173) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/YFM/logo_xsmall.png[0m
+08:51:40.295 -> 
+08:51:40.295 -> [0;32mI (9183) ELEMDATA: [ID]: IBS[0m
+08:51:40.295 -> [0;32mI (9183) ELEMDATA: [NAME]: LuckyFM ˆïé•ú‘—[0m
+08:51:40.295 -> [0;32mI (9193) ELEMDATA: [ASCII_NAME]: IBS RADIO[0m
+08:51:40.295 -> [0;32mI (9193) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/IBS/logo_xsmall.png[0m
+08:51:40.295 -> 
+08:51:40.295 -> [0;32mI (9203) ELEMDATA: [ID]: HOUSOU-DAIGAKU[0m
+08:51:40.295 -> [0;32mI (9203) ELEMDATA: [NAME]: •ú‘—‘åŠw[0m
+08:51:40.295 -> [0;32mI (9213) ELEMDATA: [ASCII_NAME]: HOUSOU-DAIGAKU[0m
+08:51:40.295 -> [0;32mI (9213) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/HOUSOU-DAIGAKU/logo_xsmall.png[0m
+08:51:40.342 -> 
+08:51:40.342 -> [0;32mI (9223) ELEMDATA: [ID]: JOAK[0m
+08:51:40.342 -> [0;32mI (9233) ELEMDATA: [NAME]: NHKƒ‰ƒWƒI‘æ1i“Œ‹žj[0m
+08:51:40.342 -> [0;32mI (9233) ELEMDATA: [ASCII_NAME]: JOAK[0m
+08:51:40.342 -> [0;32mI (9243) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/JOAK/logo_xsmall.png[0m
+08:51:40.342 -> 
+08:51:40.342 -> [0;32mI (9253) ELEMDATA: [ID]: JOAK-FM[0m
+08:51:40.342 -> [0;32mI (9253) ELEMDATA: [NAME]: NHK-FMi“Œ‹žj[0m
+08:51:40.342 -> [0;32mI (9253) ELEMDATA: [ASCII_NAME]: JOAK-FM[0m
+08:51:40.342 -> [0;32mI (9263) ELEMDATA: [LOGO_XSMALL]: http://radiko.jp/station/logo/JOAK-FM/logo_xsmall.png[0m
+08:51:40.342 -> 
+08:51:40.342 -> [0;32mI (9273) RESULTS: [0]: TBS[0m
+08:51:40.389 -> [0;32mI (9273) RESULTS: [1]: QRR[0m
+08:51:40.389 -> [0;32mI (9273) RESULTS: [2]: LFR[0m
+08:51:40.389 -> [0;32mI (9283) RESULTS: [3]: RN1[0m
+08:51:40.389 -> [0;32mI (9283) RESULTS: [4]: RN2[0m
+08:51:40.389 -> [0;32mI (9283) RESULTS: [5]: INT[0m
+08:51:40.389 -> [0;32mI (9293) RESULTS: [6]: FMT[0m
+08:51:40.389 -> [0;32mI (9293) RESULTS: [7]: FMJ[0m
+08:51:40.389 -> [0;32mI (9293) RESULTS: [8]: FMGUNMA[0m
+08:51:40.389 -> [0;32mI (9303) RESULTS: [9]: JORF[0m
+08:51:40.389 -> [0;32mI (9303) RESULTS: [10]: BAYFM78[0m
+08:51:40.389 -> [0;32mI (9313) RESULTS: [11]: NACK5[0m
+08:51:40.389 -> [0;32mI (9313) RESULTS: [12]: YFM[0m
+08:51:40.389 -> [0;32mI (9313) RESULTS: [13]: IBS[0m
+08:51:40.389 -> [0;32mI (9323) RESULTS: [14]: HOUSOU-DAIGAKU[0m
+08:51:40.436 -> [0;32mI (9323) RESULTS: [15]: JOAK[0m
+08:51:40.436 -> [0;32mI (9323) RESULTS: [16]: JOAK-FM[0m
+08:51:40.436 -> [0;32mI (9333) GET ST LIST: Removing buffer[0m
+08:51:40.436 -> [0;32mI (9333) EVT_HTTP: HTTP_EVENT_DISCONNECTED[0m
+08:51:40.436 -> [0;32mI (9343) RADIKO: TMP_URL: http://f-radiko.smartstream.ne.jp/INT/_definst_/simul-stream.stream/playlist.m3u8[0m
+08:51:40.436 -> [0;33mW (9353) RADIKO: URL: http://f-radiko.smartstream.ne.jp/INT/_definst_/simul-stream.stream/playlist.m3u8[0m
+08:51:40.436 -> [0;32mI (9363) RADIKO: Starting get playlist[0m
+08:51:40.766 -> [0;32mI (9683) RADIKO: HTTPS Status = 200, content_length = 173[0m
+08:51:40.766 -> [0;32mI (9683) RADIKO: Received body: #EXTM3U
+08:51:40.766 -> #EXT-X-VERSION:3
+08:51:40.766 -> #EXT-X-STREAM-INF:BANDWIDTH=48844,CODECS="mp4a.40.2"
+08:51:40.766 -> http://f-radiko.smartstream.ne.jp/INT/_definst_/simul-stream.stream/chunklist_w1614974770.m3u8
+08:51:40.812 -> [0m
+08:51:40.812 -> [0;32mI (9693) RADIKO: Stream url: http://f-radiko.smartstream.ne.jp/INT/_definst_/simul-stream.stream/chunklist_w1614974770.m3u8[0m
+08:51:40.812 -> [0;32mI (9703) EVT_HTTP: HTTP_EVENT_DISCONNECTED[0m
+08:51:40.812 -> [0;32mI (9713) HTTP_LIVINGSTREAM_EXAMPLE: [3.2] Set up  uri (http as http_stream, aac as aac decoder, and default output is i2s)[0m
+08:51:40.812 -> [0;32mI (9723) HTTP_LIVINGSTREAM_EXAMPLE: [ 4 ] Set up  event listener[0m
+08:51:40.812 -> [0;32mI (9733) HTTP_LIVINGSTREAM_EXAMPLE: [4.1] Listening event from all elements of pipeline[0m
+08:51:40.859 -> [0;32mI (9743) HTTP_LIVINGSTREAM_EXAMPLE: [4.2] Listening event from peripherals[0m
+08:51:40.859 -> [0;32mI (9743) HTTP_LIVINGSTREAM_EXAMPLE: [ 5 ] Start audio_pipeline[0m
+08:51:40.859 -> [0;32mI (9753) AUDIO_ELEMENT: [http-0x3ffbe48c] Element task created[0m
+08:51:40.859 -> [0;32mI (9763) AUDIO_ELEMENT: [aac-0x3ffc1bb8] Element task created[0m
+08:51:40.859 -> [0;32mI (9763) AUDIO_ELEMENT: [i2s-0x3ffc1804] Element task created[0m
+08:51:40.859 -> [0;32mI (9773) AUDIO_ELEMENT: [alc-0x3ffc1f38] Element task created[0m
+08:51:40.859 -> [0;32mI (9783) AUDIO_PIPELINE: Func:audio_pipeline_run, Line:359, MEM Total:121264 Bytes
+
+08:51:40.905 -> [0m
+08:51:40.905 -> [0;32mI (9783) AUDIO_ELEMENT: [http] AEL_MSG_CMD_RESUME,state:1[0m
+08:51:40.905 -> [0;32mI (9793) AUDIO_ELEMENT: [aac] AEL_MSG_CMD_RESUME,state:1[0m
+08:51:40.905 -> [0;32mI (9803) AUDIO_ELEMENT: [i2s] AEL_MSG_CMD_RESUME,state:1[0m
+08:51:40.905 -> [0;32mI (9803) I2S_STREAM: AUDIO_STREAM_WRITER[0m
+08:51:40.905 -> [0;32mI (9813) AUDIO_ELEMENT: [alc] AEL_MSG_CMD_RESUME,state:1[0m
+08:51:40.905 -> [0;32mI (9833) AUDIO_PIPELINE: Pipeline started[0m
+08:51:40.951 -> [0;32mI (9863) HTTP_STREAM: total_bytes=4865[0m
+08:51:40.951 -> [0;32mI (9883) HTTP_STREAM: Live stream URI. Need to be fetched again![0m
+08:51:40.997 -> [0;32mI (9903) HTTP_STREAM: total_bytes=30784[0m
+08:51:40.997 -> [0;32mI (9903) CODEC_ELEMENT_HELPER: The element is 0x3ffc1bb8. The reserve data 2 is 0x0.[0m
+08:51:40.997 -> [0;32mI (9903) AAC_DECODER: a new song playing[0m
+08:51:40.997 -> [0;32mI (9913) AAC_DECODER: this audio is RAW AAC[0m
+08:51:41.044 -> [0;32mI (9943) HTTP_LIVINGSTREAM_EXAMPLE: [ * ] Receive music info from aac decoder, sample_rates=24000, bits=16, ch=2[0m
+08:51:41.044 -> [0;32mI (9943) ECHO_BOARD: Set led color : C300[0m
+08:51:41.044 -> [0;32mI (9983) AUDIO_ELEMENT: [i2s] AEL_MSG_CMD_PAUSE[0m
+08:51:41.090 -> [0;32mI (9993) I2S: APLL: Req RATE: 24000, real rate: 23999.980, BITS: 16, CLKM: 1, BCK_M: 8, MCLK: 6143995.000, SCLK: 767999.375000, diva: 1, divb: 0[0m
+08:51:41.090 -> [0;32mI (10003) AUDIO_ELEMENT: [i2s] AEL_MSG_CMD_RESUME,state:4[0m
+08:51:41.090 -> [0;32mI (10003) I2S_STREAM: AUDIO_STREAM_WRITER[0m
+08:51:42.262 -> [0;33mW (11163) HTTP_STREAM: No more data,errno:0, total_bytes:30784, rlen = 0[0m
+08:51:42.262 -> [0;32mI (11163) AUDIO_ELEMENT: IN-[http] AEL_IO_DONE,0[0m
+08:51:42.262 -> [0;32mI (11193) HTTP_STREAM: total_bytes=30031[0m
+08:51:47.200 -> [0;33mW (16113) HTTP_STREAM: No more data,errno:0, total_bytes:30031, rlen = 0[0m
+08:51:47.200 -> [0;32mI (16113) AUDIO_ELEMENT: IN-[http] AEL_IO_DONE,0[0m
+08:51:47.247 -> [0;32mI (16163) HTTP_STREAM: total_bytes=30036[0m

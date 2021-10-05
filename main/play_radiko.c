@@ -29,8 +29,8 @@
 #include "periph_touch.h"
 #include "periph_adc_button.h"
 #include "periph_button.h"
-#include "board.h"
 #include "periph_wifi.h"
+#include "periph_ws2812.h"
 #include "board.h"
 #include "audio_alc.h"
 #include "input_key_service.h"
@@ -73,17 +73,13 @@ int _http_stream_event_handle(http_stream_event_msg_t *msg)
 
 
 audio_element_handle_t alc_el;
-
 int player_volume=-10;
 
 #include "driver/gpio.h"
-#include "ws2812_control.h"
 #define BLINK_GPIO 10
 
-struct led_state new_state;
 void app_main(void)
 {
-
     esp_err_t err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES) 
     {
@@ -100,11 +96,7 @@ void app_main(void)
     gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
     gpio_set_level(BLINK_GPIO, 0);
 
-    ws2812_control_init();
-    new_state.leds[0] = 0x005000;
-	ws2812_write_leds(new_state);
-    
-
+	audio_board_led(LED2812_COLOR_RED);
     esp_log_level_set("*", ESP_LOG_INFO);
     esp_log_level_set(TAG, ESP_LOG_DEBUG);
 
@@ -165,7 +157,7 @@ void app_main(void)
     esp_periph_set_handle_t set = esp_periph_set_init(&periph_cfg);
     audio_board_key_init(set);
 
-    ESP_LOGI(TAG, "[ 3 ] Start and wait for Wi-Fi network");
+    ESP_LOGI(TAG, "[ 3.1 ] Start and wait for Wi-Fi network");
 
     periph_wifi_cfg_t wifi_cfg = 
     {
@@ -176,12 +168,11 @@ void app_main(void)
     esp_periph_start(set, wifi_handle);
     periph_wifi_wait_for_connected(wifi_handle, portMAX_DELAY);
 
-    new_state.leds[0] = 0x0050;//blue
-	ws2812_write_leds(new_state);
+	audio_board_led(LED2812_COLOR_BLUE);
     auth();
     get_station_list();
     generate_playlist_url(&stations[current_station]);
-    ESP_LOGI(TAG, "[2.6] Set up  uri (http as http_stream, aac as aac decoder, and default output is i2s)");
+    ESP_LOGI(TAG, "[3.2] Set up  uri (http as http_stream, aac as aac decoder, and default output is i2s)");
     audio_element_set_uri(http_stream_reader, _playlist_url);
 
     ESP_LOGI(TAG, "[ 4 ] Set up  event listener");
@@ -246,11 +237,12 @@ void app_main(void)
            			player_volume-=10;
            			if (player_volume<=-50) player_volume=0;
                 	alc_volume_setup_set_volume(alc_el, player_volume);
-            		ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_LONG_RELEASE VOLUME DOWN");
+                	audio_board_led((0xff+player_volume*6)<<8);//green
+            		ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_LONG_RELEASE>VOLUME DOWN");
             		continue;
             		}
             	
-            	ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_RELEASE CHANGE STATION");
+            	ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_RELEASE>CHANGE STATION");
                 ESP_LOGI(TAG, "[ * ] Stopping audio pipeline");
 
                 audio_pipeline_stop(pipeline);
@@ -290,10 +282,8 @@ void app_main(void)
             ESP_LOGI(TAG, "[ * ] Receive music info from aac decoder, sample_rates=%d, bits=%d, ch=%d",
                     music_info.sample_rates, music_info.bits, music_info.channels);
 
-
             audio_element_setinfo(i2s_stream_writer, &music_info);
-          	new_state.leds[0] = 0x500000;//green
-    		ws2812_write_leds(new_state);
+            audio_board_led((0xff+player_volume*6)<<8);//green
             alc_volume_setup_set_channel(alc_el, music_info.channels);
             alc_volume_setup_set_volume(alc_el, player_volume);
 

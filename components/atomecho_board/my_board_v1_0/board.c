@@ -26,8 +26,9 @@
 #include "board.h"
 #include "audio_mem.h"
 
-#include "periph_sdcard.h"
 #include "periph_button.h"
+#include "periph_ws2812.h"
+#include "display_service.h"
 
 static const char *TAG = "ECHO_BOARD";
 
@@ -69,21 +70,6 @@ esp_err_t audio_board_key_init(esp_periph_set_handle_t set)
     return ret;
 }
 
-
-esp_err_t audio_board_sdcard_init(esp_periph_set_handle_t set, periph_sdcard_mode_t mode)
-{
-    periph_sdcard_cfg_t sdcard_cfg = {
-        .root = "/sdcard",
-        .card_detect_pin = get_sdcard_intr_gpio(), // GPIO_NUM_34
-    };
-    esp_periph_handle_t sdcard_handle = periph_sdcard_init(&sdcard_cfg);
-    esp_err_t ret = esp_periph_start(set, sdcard_handle);
-    while (!periph_sdcard_is_mounted(sdcard_handle)) {
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-    }
-    return ret;
-}
-
 audio_board_handle_t audio_board_get_handle(void)
 {
     return board_handle;
@@ -95,5 +81,30 @@ esp_err_t audio_board_deinit(audio_board_handle_t audio_board)
     ret |= audio_hal_deinit(audio_board->audio_hal);
     free(audio_board);
     board_handle = NULL;
+    return ret;
+}
+
+esp_err_t audio_board_led(int color)
+{
+    esp_err_t ret = ESP_OK;	
+    ESP_LOGI(TAG, "Set led color : %X",color);
+    esp_periph_config_t periph_cfg = DEFAULT_ESP_PERIPH_SET_CONFIG();
+    esp_periph_set_handle_t set = esp_periph_set_init(&periph_cfg);
+
+    periph_ws2812_cfg_t cfg = {
+        .gpio_num = GPIO_NUM_27,
+        .led_num = 1,
+    };
+    esp_periph_handle_t handle = periph_ws2812_init(&cfg);
+    ret=esp_periph_start(set, handle);
+
+    periph_ws2812_ctrl_cfg_t *control_cfg = malloc(sizeof(periph_ws2812_ctrl_cfg_t) * cfg.led_num);
+    control_cfg[0].color = color;
+    control_cfg[0].mode = PERIPH_WS2812_ONE;
+
+    periph_ws2812_control(handle, control_cfg, NULL);
+    esp_periph_set_stop_all(set);
+    esp_periph_set_destroy(set);
+    free(control_cfg);
     return ret;
 }

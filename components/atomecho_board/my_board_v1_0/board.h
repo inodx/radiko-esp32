@@ -78,15 +78,16 @@ audio_hal_handle_t audio_board_adc_init(void);
 esp_err_t audio_board_key_init(esp_periph_set_handle_t set);
 
 /**
- * @brief Initialize sdcard peripheral
+ * @brief led function
  *
- * @param set The handle of esp_periph_set_handle_t
+ * @param set Color
  *
  * @return
  *     - ESP_OK, success
  *     - Others, fail
  */
-esp_err_t audio_board_sdcard_init(esp_periph_set_handle_t set, periph_sdcard_mode_t mode);
+esp_err_t audio_board_led(int color);
+
 
 /**
  * @brief Query audio_board_handle

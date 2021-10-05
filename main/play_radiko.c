@@ -139,8 +139,7 @@ void app_main(void)
     i2s_cfg.type = AUDIO_STREAM_WRITER;
     i2s_stream_writer = i2s_stream_init(&i2s_cfg);
 #endif
-    new_state.leds[0] = 0x0050;//blue
-//    ws2812_write_leds(new_state);
+
     ESP_LOGI(TAG, "[2.3] Create aac decoder to decode aac file");
     aac_decoder_cfg_t aac_cfg = DEFAULT_AAC_DECODER_CONFIG();
     aac_decoder = aac_decoder_init(&aac_cfg);
@@ -173,18 +172,17 @@ void app_main(void)
         .ssid = CONFIG_WIFI_SSID,
         .password = CONFIG_WIFI_PASSWORD,
     };
-
     esp_periph_handle_t wifi_handle = periph_wifi_init(&wifi_cfg);
     esp_periph_start(set, wifi_handle);
     periph_wifi_wait_for_connected(wifi_handle, portMAX_DELAY);
+
+    new_state.leds[0] = 0x0050;//blue
 	ws2812_write_leds(new_state);
     auth();
     get_station_list();
     generate_playlist_url(&stations[current_station]);
     ESP_LOGI(TAG, "[2.6] Set up  uri (http as http_stream, aac as aac decoder, and default output is i2s)");
     audio_element_set_uri(http_stream_reader, _playlist_url);
-
-
 
     ESP_LOGI(TAG, "[ 4 ] Set up  event listener");
     audio_event_iface_cfg_t evt_cfg = AUDIO_EVENT_IFACE_DEFAULT_CFG();
@@ -248,14 +246,11 @@ void app_main(void)
            			player_volume-=10;
            			if (player_volume<=-50) player_volume=0;
                 	alc_volume_setup_set_volume(alc_el, player_volume);
-            		ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_LONG_RELEASE");
+            		ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_LONG_RELEASE VOLUME DOWN");
             		continue;
             		}
-//            	if (msg.cmd != PERIPH_BUTTON_RELEASE) continue;
             	
-            	ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_RELEASE");
- 				
-                ESP_LOGI(TAG, "[ * ] [Set] touch tap event");
+            	ESP_LOGI(TAG, "[ set ] PERIPH_BUTTON_RELEASE CHANGE STATION");
                 ESP_LOGI(TAG, "[ * ] Stopping audio pipeline");
 
                 audio_pipeline_stop(pipeline);
@@ -277,31 +272,12 @@ void app_main(void)
                 ESP_LOGW(TAG, "[ * ] Restart stream");
                 audio_element_reset_state(aac_decoder);
                 audio_element_reset_state(i2s_stream_writer);
+                audio_element_reset_state(alc_el);
                 audio_pipeline_reset_ringbuffer(pipeline);
                 audio_pipeline_reset_items_state(pipeline);
                 audio_pipeline_run(pipeline);
             } 
-            else if ((int) msg.data == get_input_volup_id()) 
-            {
-                ESP_LOGI(TAG, "[ * ] [Vol+] touch tap event");
-                player_volume += 5;
-                if (player_volume > 100) 
-                {
-                    player_volume = 100;
-                }
-//                audio_hal_set_volume(board_handle->audio_hal, player_volume);
-                ESP_LOGI(TAG, "[ * ] Volume set to %d %%", player_volume);
-            } 
-            else if ((int) msg.data == get_input_voldown_id()) 
-            {
-                ESP_LOGI(TAG, "[ * ] [Vol-] touch tap event");
-                player_volume -= 10;
-                if (player_volume < 0) {
-                    player_volume = 0;
-                }
-//                audio_hal_set_volume(board_handle->audio_hal, player_volume);
-                ESP_LOGI(TAG, "[ * ] Volume set to %d %%", player_volume);
-            }
+
         }
 
         if (msg.source_type == AUDIO_ELEMENT_TYPE_ELEMENT
@@ -336,6 +312,7 @@ void app_main(void)
             ESP_LOGW(TAG, "[ * ] Restart stream");
             audio_pipeline_stop(pipeline);
             audio_pipeline_wait_for_stop(pipeline);
+            audio_element_reset_state(alc_el);
             audio_element_reset_state(aac_decoder);
             audio_element_reset_state(i2s_stream_writer);
             audio_pipeline_reset_ringbuffer(pipeline);
@@ -349,6 +326,7 @@ void app_main(void)
     audio_pipeline_wait_for_stop(pipeline);
     audio_pipeline_terminate(pipeline);
 
+	audio_pipeline_unregister(pipeline, alc_el);
     audio_pipeline_unregister(pipeline, http_stream_reader);
     audio_pipeline_unregister(pipeline, i2s_stream_writer);
     audio_pipeline_unregister(pipeline, aac_decoder);
@@ -365,6 +343,7 @@ void app_main(void)
 
     /* Release all resources */
     audio_pipeline_deinit(pipeline);
+    audio_element_deinit(alc_el);
     audio_element_deinit(http_stream_reader);
     audio_element_deinit(i2s_stream_writer);
     audio_element_deinit(aac_decoder);

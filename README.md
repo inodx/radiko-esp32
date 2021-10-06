@@ -3,8 +3,8 @@ jitenshap/radiko-esp32からのフォークでATOM ECHO用になります。
 
 # 注意事項
 無保証です。自己責任でお楽しみください。外部接続などで場合によっては機器を破損したりする場合もあります。
-またM5 ATOM ECHOでは「長時間の連続再生は推奨されていませんhttps://www.switch-science.com/catalog/6347/」。
-特に初期出荷モデルでは破損する可能性があります。十分ご注意ください。
+またM5 ATOM ECHOでは「長時間の連続再生は推奨されていませんhttps://www.switch-science.com/catalog/6347/
+」。特に初期出荷モデルでは破損する可能性があります。十分ご注意ください。
 
 ## Change 10/4
 - ステレオの再生が片側チャンネルだったのを、ミックス後１チャンネル再生へ
@@ -55,4 +55,4 @@ IDFでコンパイル転送します（idf.py -p COM3 flash -b 115200など環�
 
 
 以下シリアルに出るログのサンプルです
-https://github.com/inodx/radiko-esp32/blob/main/etc/logsample.txt
+https://github.com/inodx/radiko-esp32/blob/main/etc/logsample2.txt
